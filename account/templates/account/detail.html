@@ -1,0 +1,57 @@
+<!-- ย้อนกลับ -->
+<a href="../">Back to Account index</a>
+
+<!-- table style -->
+<style>
+table {
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+}
+</style>
+
+<!-- แสดง list and money -->
+<h1>{{ account.account_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+{% csrf_token %}
+
+<table>
+    <tr style="background-color:rgb(200, 200, 200);color:black">
+        <th>No.</th>
+        <th>Date and Time</th>
+        <th>List</th>
+        <th>Receive</th>
+        <th>Pay</th>
+    </tr>
+    <tr>
+        {% for list in account.list_set.all %}
+        <td><label for="list{{ forloop.counter }}">{{ list.id }}</label></td> <!-- id (No.) -->
+        <td><label for="list{{ forloop.counter }}">{{ list.pub_date }}</label></td> <!-- date time -->
+        <td><label for="list{{ forloop.counter }}">{{ list.list_text }}</label></td> <!-- list text -->
+        <td><label for="list{{ forloop.counter }}">{{ list.get_money }}</label></td> <!-- getmoney -->
+        <td><label for="list{{ forloop.counter }}">{{ list.pay_money }}</label></td></tr> <!-- paymoney -->
+        <br />
+        {% endfor %}
+</table>
+
+<!-- add list -->
+<br>
+<br>
+<br>
+<form action="{% url 'account:detail' account.id %}" method="post">
+{% csrf_token %}
+New List : <input type="text" name="addlist"><br>
+Receive : <input type="number" name="moneyget" value="0">
+or Pay : <input type="number" name="moneypay" value="0"><br>
+Date and Time : <input type="text" name="date_time">
+<br><br><input type="submit" value="Add" />
+</form>
+
+<br>
+<br>
+<a href="">List Setting</a>

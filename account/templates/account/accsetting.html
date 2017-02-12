@@ -1,0 +1,11 @@
+<a href="../">Back to Account index</a><br><br>
+<h1>Add Account</h1>
+<form action="{% url 'account:accountsetting' %}" method="post">
+{% csrf_token %}
+New Account : <input type="text" name="addlist"><br>
+<br><br><input type="submit" value="Add" />
+</form>
+
+<!-- Delete -->
+<br><br><br>
+<h1>Delete Account</h1>
