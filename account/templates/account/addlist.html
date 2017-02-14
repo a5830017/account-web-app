@@ -1,4 +1,9 @@
-<form action="{% url 'account:detail' account.id %}" method="post">
+<h1>Your Account : {{account.account_text}}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+<form action="{% url 'account:listdb' account.id %}" method="post">
 {% csrf_token %}
 New List : <input type="text" name="addlist"><br>
 Receive : <input type="number" name="moneyget" value="0">
