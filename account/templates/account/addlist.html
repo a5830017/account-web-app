@@ -1,0 +1,7 @@
+<form action="{% url 'account:detail' account.id %}" method="post">
+{% csrf_token %}
+New List : <input type="text" name="addlist"><br>
+Receive : <input type="number" name="moneyget" value="0">
+or Pay : <input type="number" name="moneypay" value="0"><br>
+<br><br><input type="submit" value="Add" />
+</form>

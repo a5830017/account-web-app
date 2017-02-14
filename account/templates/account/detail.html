@@ -39,19 +39,8 @@ table, td, th {
         {% endfor %}
 </table>
 
-<!-- add list -->
-<br>
-<br>
-<br>
-<form action="{% url 'account:detail' account.id %}" method="post">
-{% csrf_token %}
-New List : <input type="text" name="addlist"><br>
-Receive : <input type="number" name="moneyget" value="0">
-or Pay : <input type="number" name="moneypay" value="0"><br>
-Date and Time : <input type="text" name="date_time">
-<br><br><input type="submit" value="Add" />
-</form>
+
 
 <br>
 <br>
-<a href="">List Setting</a>
+<a href="addlist">List Setting</a>
