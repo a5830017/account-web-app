@@ -30,7 +30,7 @@ table, td, th {
     </tr>
     <tr>
         {% for list in account.list_set.all %}
-        <td><label for="list{{ forloop.counter }}">{{ list.id }}</label></td> <!-- id (No.) -->
+        <td><label for="list{{ forloop.counter }}">{{ forloop.counter }}</label></td> <!-- (No.) --> <!--list.id-->
         <td><label for="list{{ forloop.counter }}">{{ list.pub_date }}</label></td> <!-- date time -->
         <td><label for="list{{ forloop.counter }}">{{ list.list_text }}</label></td> <!-- list text -->
         <td><label for="list{{ forloop.counter }}">{{ list.get_money }}</label></td> <!-- getmoney -->
