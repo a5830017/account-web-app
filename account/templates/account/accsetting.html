@@ -2,11 +2,11 @@
 <h1>Add Account</h1>
 <form action="{% url 'account:accountsetting' %}" method="post">
 {% csrf_token %}
-New Account : <input type="text" name="addlist"><br>
+New Account : <input type="text" name="addacc"><br>
 <br><br><input type="submit" value="Add" />
 </form>
 
-<!-- Delete //// cant use-->
+<!-- Delete //// cant use
 <br><br><br>
 <h1>Delete Account</h1>
 <form action="{% url 'account:accountsetting' %}" method="post">
@@ -15,4 +15,4 @@ New Account : <input type="text" name="addlist"><br>
     <input type="radio" name="selectaccount" id="account{{ forloop.counter }}" value="{{ account.id }}" />
     <label for="account{{ forloop.counter }}">{{ account.account_text }}</label>
 {% endfor %}
-</form>
+</form>-->

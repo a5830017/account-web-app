@@ -22,6 +22,13 @@ class DetailView(generic.DetailView):
 
 
 def AccSetting(request): #add account
+    try:
+        addacc = request.POST['addacc']
+    except:
+        pass
+    else:
+        q = Account(account_text=addacc, total_money=0)
+        q.save()
     return render(request, "account/accsetting.html", '')
 
 def addlist(request, account_id):
@@ -45,7 +52,6 @@ def listdb(request, account_id):
         else:
             account.list_set.create(list_text=addlist, get_money=moneyget, pay_money=moneypay, pub_date=timezone.now())
             return HttpResponseRedirect(reverse('account:detail', args=(account.id,)))
-
 
 '''
     def add_list(self):
