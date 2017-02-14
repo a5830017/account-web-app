@@ -53,6 +53,34 @@ def listdb(request, account_id):
             account.list_set.create(list_text=addlist, get_money=moneyget, pay_money=moneypay, pub_date=timezone.now())
             return HttpResponseRedirect(reverse('account:detail', args=(account.id,)))
 
+class SelDelList(generic.DetailView):
+    model = Account
+    template_name = 'account/seldellist.html'
+
+def dellist(request, account_id):
+    account = get_object_or_404(Account, pk=account_id)
+
+    try:
+        selected_list = account.list_set.get(pk=request.POST['list'])
+    except (KeyError, List.DoesNotExist):
+        return render(request, 'account/seldellist.html', {
+            'account': account,
+            'error_message': "You didn't select a list.",
+        })
+    else:
+        selected_list.delete()
+        return render(request, "account/dellist.html", {'account': account, 'selected_list' : selected_list,})
+
+#def dellistdb(request, account_id):
+#    pass
+
+
+
+
+
+
+
+
 '''
     def add_list(self):
         try:

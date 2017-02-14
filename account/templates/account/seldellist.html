@@ -1,0 +1,14 @@
+<a href="../">Back to Account detail</a><br><br>
+<h1>{{ account.account_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'account:dellist' account.id %}" method="post">
+{% csrf_token %}
+{% for list in account.list_set.all %}
+    <input type="radio" name="list" id="list{{ forloop.counter }}" value="{{ list.id }}" />
+    <label for="list{{ forloop.counter }}">{{ list.list_text }}</label><br />
+{% endfor %}
+<br>
+<input type="submit" value="Delete" />
+</form>
