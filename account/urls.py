@@ -12,4 +12,5 @@ urlpatterns = [
     #url(r'^(?P<account_id>[0-9]+)/deletelistdb/$', views.dellistdb, name='dellistdb'),
     url(r'^(?P<pk>[0-9]+)/sellisttodel/$', views.SelDelList.as_view(), name='seldellist'),
     url(r'^(?P<account_id>[0-9]+)/sellisttodel/deletelist/$', views.dellist, name='dellist'),
+    url(r'^(?P<account_id>[0-9]+)/showtotalmoney/$', views.caltotal, name='showtotal'),
 ]
