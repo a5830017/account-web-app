@@ -75,11 +75,13 @@ def dellist(request, account_id):
 
 def caltotal(request, account_id):
     account = get_object_or_404(Account, pk=account_id)
-    list_set = List.objects.order_by('pub_date')
+    #list_set = List.objects.order_by('pub_date')
+    get_list = Account.objects.get(pk=account_id)
+
     receive = 0
     pay = 0
     mtotal = 0
-    for li in list_set:
+    for li in get_list.list_set.all():
         receive = li.get_money
         pay = li.pay_money
         mtotal = mtotal+(receive - pay)
