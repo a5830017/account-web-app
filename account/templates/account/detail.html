@@ -35,9 +35,12 @@ table, td, th {
         <td><label for="list{{ forloop.counter }}">{{ list.list_text }}</label></td> <!-- list text -->
         <td><label for="list{{ forloop.counter }}">{{ list.get_money }}</label></td> <!-- getmoney -->
         <td><label for="list{{ forloop.counter }}">{{ list.pay_money }}</label></td></tr> <!-- paymoney -->
-        <br />
+
         {% endfor %}
+        <tr><td>Total : {{ account.total_money  }}</td></tr>
+        <br />
 </table>
+
 
 
 

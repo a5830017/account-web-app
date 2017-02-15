@@ -20,6 +20,18 @@ class DetailView(generic.DetailView):
     model = Account
     template_name = 'account/detail.html'
 
+    def caltotal(self, request, account_id):
+        account = get_object_or_404(Account, pk=account_id)
+        receive = 0
+        pay = 0
+        total = 0
+        for listacc in account.list_set.all:
+            receive += listacc.get_money
+            pay += listacc.pay_money
+        total = receive + pay
+        account.total_money = total
+        return account.total_money
+
 
 def AccSetting(request): #add account
     try:
@@ -71,26 +83,5 @@ def dellist(request, account_id):
         selected_list.delete()
         return render(request, "account/dellist.html", {'account': account, 'selected_list' : selected_list,})
 
-#def dellistdb(request, account_id):
-#    pass
 
 
-
-
-
-
-
-
-'''
-    def add_list(self):
-        try:
-            addlist = request.POST['addlist']
-            moneyget = request.POST['moneyget']
-            moneypay = request.POST['moneypay']
-        except:
-            addlist = ""
-            moneyget = ""
-            moneypay = ""
-        else:
-            q = Account(list_text=addlist, get_money=moneyget, pay_money=moneypay, pub_date=timezone.now())
-            q.save()'''
