@@ -91,3 +91,4 @@ def caltotal(request, account_id):
             'total': account.total_money,
         })
 
+#test push ubuntu
