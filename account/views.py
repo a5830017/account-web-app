@@ -39,21 +39,50 @@ def addlist(request, account_id):
 
 def listdb(request, account_id):
     account = get_object_or_404(Account, pk=account_id)
+    settime = 0
     try:
-        addlist = request.POST['addlist']
-        moneyget = request.POST['moneyget']
-        moneypay = request.POST['moneypay']
-    except (KeyError, List.DoesNotExist):
-        pass
+        selected_time = request.POST['time']
+    except:
+        selected_time = 'Auto'
+
+    if selected_time == 'Other':
+        settime = 1
     else:
-        if len(addlist)==0:
-            return render(request, 'account/addlist.html', {
-            'account': account,
-            'error_message': "Please fill data in input box.",
-        })
+        settime = 0
+
+    if settime == 1:
+        try:
+            addlist = request.POST['addlist']
+            moneyget = request.POST['moneyget']
+            moneypay = request.POST['moneypay']
+            urtime = request.POST['date']
+        except (KeyError, List.DoesNotExist):
+            urtime = timezone.now()
         else:
-            account.list_set.create(list_text=addlist, get_money=moneyget, pay_money=moneypay, pub_date=timezone.now())
-            return HttpResponseRedirect(reverse('account:detail', args=(account.id,)))
+            if len(addlist)==0 or len(urtime) ==0 :
+                return render(request, 'account/addlist.html', {
+                'account': account,
+                'error_message': "Please fill data in input box.",
+            })
+            else:
+                account.list_set.create(list_text=addlist, get_money=moneyget, pay_money=moneypay, pub_date=urtime)
+                return HttpResponseRedirect(reverse('account:detail', args=(account.id,)))
+    else:
+        try:
+            addlist = request.POST['addlist']
+            moneyget = request.POST['moneyget']
+            moneypay = request.POST['moneypay']
+        except (KeyError, List.DoesNotExist):
+            pass
+        else:
+            if len(addlist)==0 :
+                return render(request, 'account/addlist.html', {
+                'account': account,
+                'error_message': "Please fill data in input box.",
+            })
+            else:
+                account.list_set.create(list_text=addlist, get_money=moneyget, pay_money=moneypay, pub_date=timezone.now())
+                return HttpResponseRedirect(reverse('account:detail', args=(account.id,)))
 
 class SelDelList(generic.DetailView):
     model = Account
