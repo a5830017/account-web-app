@@ -56,8 +56,8 @@ def listdb(request, account_id):
             moneyget = request.POST['moneyget']
             moneypay = request.POST['moneypay']
             urtime = request.POST['date']
-        except (KeyError, List.DoesNotExist):
-            pass
+        except:
+            urtime = timezone.now()
         else:
             if len(addlist)==0 or len(urtime) ==0 :
                 return render(request, 'account/addlist.html', {
