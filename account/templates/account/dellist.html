@@ -5,5 +5,5 @@
 <p style="font-size:200;"><b>Delete : {{ selected_list }}<b></p>
 </ul>
 <br><br>
-<a href="../">>>>Delete more</a><br><br>
-<a href="../../">Back to detail<<<</a>
+<a href="{% url 'account:seldellist' account.id %}">>>>Delete more</a><br><br>
+<a href="{% url 'account:detail' account.id %}">Back to detail<<<</a>

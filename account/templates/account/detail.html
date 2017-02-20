@@ -1,5 +1,5 @@
 <!-- ย้อนกลับ -->
-<a href="../">Back to Account index</a>
+<a href="{% url 'account:index' %}">Back to Account index</a>
 
 <!-- table style -->
 <style>
@@ -44,10 +44,10 @@ table, td, th {
 
 <br>
 <br>
-<a href="showtotalmoney">See total money</a>
+<a href="{% url 'account:showtotal' account.id %}">See total money</a>
 <br>
 <br>
-<a href="addlist">Add List</a>
+<a href="{% url 'account:addlist' account.id %}">Add List</a>
 <br>
 <br>
-<a href="sellisttodel">Delete List</a>
+<a href="{% url 'account:seldellist' account.id %}">Delete List</a>

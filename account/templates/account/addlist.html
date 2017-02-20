@@ -1,4 +1,4 @@
-<a href="../">Back to Account detail</a><br><br>
+<a href="{% url 'account:detail' account.id %}">Back to Account detail</a><br><br>
 <h1>Your Account : {{account.account_text}}</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
@@ -9,11 +9,11 @@
 New List : <input type="text" name="addlist"><br>
 Receive : <input type="number" name="moneyget" value="0">
 or Pay : <input type="number" name="moneypay" value="0"><br>
-<input type="radio" name="time" value="Auto"> : Auto time <br>
+<input type="radio" name="time" value="Auto" checked> : Auto time <br>
 <input type="radio" name="time" value="Other"> : Other time
 Date and Time : <input type="datetime-local" name="date"><br>
-<br><b style="color:red">*Note</b><br>
+<!--<br><b style="color:red">*Note</b><br>
 Auto time (use current time with asia/bangkok timezone)<br>
-If Don't selected it's will become auto time<br>
+If Don't selected it's will become auto time<br>-->
 <br><br><input type="submit" value="Add" />
 </form>

@@ -1,8 +1,9 @@
 <h1>Account</h1>
 {% if account_list %}
     <ul>
+    <h2>Select Account</h2>
     {% for account in account_list %}
-        <li><a href="{% url 'account:detail' account.id %}">{{ account.account_text }}</a></li>
+        <a href="{% url 'account:detail' account.id %}">{{ account.account_text }}</a><br>
     {% endfor %}
     </ul>
 {% else %}
@@ -11,4 +12,4 @@
 
 <br>
 <br>
-<a href="accountsetting">Add Account</a>
+<a href="{% url 'account:accountsetting' %}">Add Account</a>
