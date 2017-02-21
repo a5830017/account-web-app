@@ -1,9 +1,66 @@
+<html>
+<head>
+<style>
+h1 {
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-style: italic;
+}
+
+/* unvisited link */
+a:link {
+    color: blue;
+}
+
+/* visited link */
+a:visited {
+    color: black;
+}
+
+/* mouse over link */
+a:hover {
+    color: red;
+}
+
+/* selected link */
+a:active {
+    color: green;
+}
+
+.btn-group .button {
+    background-color: #4CAF50; /* Green */
+    border: 1px solid green;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    width: 150px;
+    display: block;
+}
+
+.btn-group .button:not(:last-child) {
+    border-bottom: none; /* Prevent double borders */
+}
+
+.btn-group .button:hover {
+    background-color: #3e8e41;
+}
+
+</style>
+</head>
 <h1>Account</h1>
+
 {% if account_list %}
     <ul>
     <h2>Select Account</h2>
+
     {% for account in account_list %}
-        <a href="{% url 'account:detail' account.id %}">{{ account.account_text }}</a><br>
+        <li><a href="{% url 'account:detail' account.id %}">{{ account.account_text }}</a></li>
+        <br>
     {% endfor %}
     </ul>
 {% else %}
@@ -13,3 +70,4 @@
 <br>
 <br>
 <a href="{% url 'account:accountsetting' %}">Add Account</a>
+</html>

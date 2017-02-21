@@ -57,7 +57,7 @@ def listdb(request, account_id):
             moneypay = request.POST['moneypay']
             urtime = request.POST['date']
         except:
-            urtime = timezone.now()
+            pass
         else:
             if len(addlist)==0 or len(urtime) ==0 :
                 return render(request, 'account/addlist.html', {
