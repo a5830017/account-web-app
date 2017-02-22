@@ -24,6 +24,8 @@ class DetailView(generic.DetailView):
 
 
 def AccSetting(request): #add account
+    account_list = Account.objects.order_by('account_text')
+    context = {'account_list': account_list}
     try:
         addacc = request.POST['addacc']
     except:
@@ -31,7 +33,9 @@ def AccSetting(request): #add account
     else:
         q = Account(account_text=addacc, total_money=0)
         q.save()
-    return render(request, "account/accsetting.html", '')
+        return HttpResponseRedirect(reverse('account:index',))
+    return render(request, "account/accsetting.html", context)
+    #return render(request, "account/accsetting.html", '')
 
 def addlist(request, account_id):
     account = get_object_or_404(Account, pk=account_id)

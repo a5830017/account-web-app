@@ -7,6 +7,18 @@ h1 {
     color: white;
     font-style: italic;
 }
+h2 {
+    color: green;
+    text-decoration: underline;
+}
+li {
+    font-size: 20px;
+}
+
+
+div {
+    padding-left: 50;
+}
 
 /* unvisited link */
 a:link {
@@ -59,6 +71,7 @@ a:active {
 </head>
 <h1>Account</h1>
 
+<div>
 {% if account_list %}
     <ul>
     <h2>Select Account</h2>
@@ -72,7 +85,10 @@ a:active {
     <p>No account are available.</p>
 {% endif %}
 
+
 <br>
 <br>
 <a class="button buttonblack" href="{% url 'account:accountsetting' %}">Add Account</a>
+
+</div>
 </html>
