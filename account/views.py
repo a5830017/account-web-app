@@ -1,5 +1,7 @@
+import csv
+
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
@@ -124,6 +126,15 @@ def caltotal(request, account_id):
             'total': account.total_money,
         })
 
-#test push ubuntu
+def export_csv(request, account_id):
+    get_list = Account.objects.get(pk=account_id)
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="export.csv"'
+    fieldnames = ['Date and Time', 'Description', 'Income', 'Expense']
 
-#test push pythonanywhere
+    writer = csv.DictWriter(response, fieldnames=fieldnames)
+    writer.writeheader()
+    for li in get_list.list_set.order_by('-pub_date'):
+        writer.writerow({'Date and Time': li.pub_date.date(), 'Description': li.list_text, 'Income': li.get_money, 'Expense': li.pay_money})
+
+    return response
