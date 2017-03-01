@@ -6,6 +6,9 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.template import loader
+from .forms import UploadFileForm
+
+
 
 from .models import Account, List
 
@@ -129,12 +132,43 @@ def caltotal(request, account_id):
 def export_csv(request, account_id):
     get_list = Account.objects.get(pk=account_id)
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="export.csv"'
+    response['Content-Disposition'] = 'attachment; filename="account.csv"'
     fieldnames = ['Date and Time', 'Description', 'Income', 'Expense']
 
     writer = csv.DictWriter(response, fieldnames=fieldnames)
     writer.writeheader()
-    for li in get_list.list_set.order_by('-pub_date'):
-        writer.writerow({'Date and Time': li.pub_date.date(), 'Description': li.list_text, 'Income': li.get_money, 'Expense': li.pay_money})
+    for li in get_list.list_set.order_by('pub_date'):
+        writer.writerow({'Date and Time': li.pub_date, 'Description': li.list_text, 'Income': li.get_money, 'Expense': li.pay_money})
 
     return response
+
+'''def import_csv(account_id, reader):
+    account = get_object_or_404(Account, pk=account_id)
+    #with open('account.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        date = row['Date and Time']
+        text = row['Description']
+        income = row['Income']
+        expense = row['Expense']
+        account.list_set.create(list_text=text, get_money=income, pay_money=expense, pub_date=date)
+    account.save()'''
+
+def upload_file(request, account_id):
+    account = get_object_or_404(Account, pk=account_id)
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            myfile = request.FILES['myfile']
+            reader = csv.DictReader(myfile)
+            for row in reader:
+                date = row['Date and Time']
+                text = row['Description']
+                income = row['Income']
+                expense = row['Expense']
+                account.list_set.create(list_text=text, get_money=income, pay_money=expense, pub_date=date)
+            account.save()
+            return HttpResponseRedirect(reverse('account:detail', args=(account.id,)))
+    else:
+        form = UploadFileForm()
+        return render(request, 'account/upload.html', {'form': form, 'account': account },)

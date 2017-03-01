@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^accountsetting/$', views.AccSetting, name='accountsetting'), #account setting -- access from index
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'), #detail page -- access from index
     url(r'^(?P<account_id>[0-9]+)/download/$', views.export_csv, name='download'),
+    url(r'^(?P<account_id>[0-9]+)/upload/$', views.upload_file, name='upload'),
     url(r'^(?P<account_id>[0-9]+)/addlist/$', views.addlist, name='addlist'),
     url(r'^(?P<account_id>[0-9]+)/listsuccess/$', views.listdb, name='listdb'),
     #url(r'^(?P<account_id>[0-9]+)/deletelistdb/$', views.dellistdb, name='dellistdb'),
