@@ -1,6 +1,11 @@
 <html>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'account/style.css' %}" />
 <head>
 <style>
+
+
 h1 {
     background-color: black;
     text-align: center;
@@ -11,7 +16,7 @@ h2 {
     color: green;
     text-decoration: underline;
 }
-li {
+li , ul {
     font-size: 20px;
 }
 
@@ -77,7 +82,7 @@ a:active {
     <h2>Select Account</h2>
 
     {% for account in account_list %}
-        <li><a href="{% url 'account:detail' account.id %}">{{ account.account_text }}</a></li>
+        <!--<li>--><a href="{% url 'account:detail' account.id %}">{{ account.account_text }}</a>
         <br>
     {% endfor %}
     </ul>

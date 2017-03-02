@@ -1,5 +1,5 @@
 import csv
-
+import codecs
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -160,15 +160,10 @@ def upload_file(request, account_id):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             myfile = request.FILES['myfile']
-            reader = csv.DictReader(myfile)
+            reader = csv.DictReader(codecs.iterdecode(myfile, 'utf-8'))
             for row in reader:
-                date = row['Date and Time']
-                text = row['Description']
-                income = row['Income']
-                expense = row['Expense']
-                account.list_set.create(list_text=text, get_money=income, pay_money=expense, pub_date=date)
-            account.save()
+                account.list_set.create(list_text=row['Description'], get_money=row['Income'], pay_money=row['Expense'], pub_date=row['Date and Time'])
             return HttpResponseRedirect(reverse('account:detail', args=(account.id,)))
     else:
         form = UploadFileForm()
-        return render(request, 'account/upload.html', {'form': form, 'account': account },)
+    return render(request, 'account/upload.html', {'form': form, 'account': account, 'account_id':account_id },)

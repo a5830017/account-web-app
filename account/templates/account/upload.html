@@ -1,9 +1,10 @@
 <!-- upload -->
 <h2>Upload to Account : {{ account }}</h2>
 
-<form action="{% url 'account:upload' account.id %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'account:upload' account_id %}" method="post" enctype="multipart/form-data">
 {% csrf_token %}
+
 <input type="file" name="myfile">
-<input type="submit" value="Upload" />
+<input type="submit" value="Upload"/>
 </form>
 <a class="button buttonblack" href="{% url 'account:detail' account.id %}">Back to Detail</a>
